@@ -1,0 +1,28 @@
+{% if message %}
+<script>
+    alert('{{ message }}');
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>e-cast</title>
+</head>
+
+<body>
+<h1>Sign In</h1>
+<form action="{% url 'signin'%}"  method="post" id="SignIn">{% csrf_token %}
+    <div>
+        <input type="email" name="email" placeholder="Email" required="" />
+    </div>
+    <div>
+        <input type="password" name="password" placeholder="Password" required="" />
+    </div>
+    <div>
+    <button type="submit" form="SignIn">SignIn</button><br>
+    </div>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{% if message %}
+<script>
+    alert('{{ message }}');
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>e-cast</title>
+</head>
+
+<body>
+<h1>ビバ　HOME!!!</h1>
+<form action="{% url 'signout'%}"  method="post" id="SignOut">{% csrf_token %}
+    <div>
+    <button type="submit" form="SignOut">Logout</button><br>
+    </div>
+</form>
+<form action="{% url 'timeline''%}"  method="post" id="TimeLine">{% csrf_token %}
+    <div>
+    <button type="submit" form="TimeLine">TimeLine</button><br>
+    </div>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sign Up</title>
+</head>
+
+<body>
+    <form action="{% url 'signup'%}"  method="post" id="SignUp">{% csrf_token %}
+        <h1>Create Account</h1>
+        <div>
+            <input type="text" name="name" placeholder="Username" required="" />
+        </div>
+        <div>
+            <input type="email" name="email" placeholder="Email" required="" />
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="Password" required="" />
+        </div>
+        <div>
+        <button type="submit" form="SignUp">SignUp</button><br>
+        </div>
+    </form>
+</body>
+
+</html>
