@@ -23,4 +23,8 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('signout', views.signout, name='signout'),
     path('timeline', views.timeline, name='timeline'),
+    path('timeline_api', views.timeline_api, name='timeline_api'),
+    path('profile', views.profile, name='profile'),
+    path('profile_edit_view', views.profile_edit_view, name='profile_edit_view'),
+    path('profile_edit', views.profile_edit, name='profile_edit'),
 ]

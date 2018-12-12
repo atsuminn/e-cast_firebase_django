@@ -1,6 +1,9 @@
 {% if message %}
 <script>
     alert('{{ message }}');
+    alert('{{ aiu }}');
+    // localStorage.setItem('hoge',uid)
+    // storage = localStorage.getItem('hoge')
 </script>
 {% endif %}
 <!DOCTYPE html>
@@ -17,10 +20,16 @@
     <button type="submit" form="SignOut">Logout</button><br>
     </div>
 </form>
-<form action="{% url 'timeline''%}"  method="post" id="TimeLine">{% csrf_token %}
+<form action="{% url 'timeline'%}"  method="post" id="TimeLine">{% csrf_token %}
     <div>
     <button type="submit" form="TimeLine">TimeLine</button><br>
     </div>
+</form>
+<form action="{% url 'profile'%}"  method="post" id="Profile">{% csrf_token %}
+        <div>
+        <!-- <input type="hidden" name="storage" value="storage"> -->
+        <button type="submit" form="Profile">Profile</button><br>
+        </div>
 </form>
 </body>
 

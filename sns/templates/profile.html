@@ -1,0 +1,33 @@
+{% if data %}
+<script>
+    alert('{{ data }}');
+    // alert('{{ aiu }}');
+    // localStorage.setItem('hoge',uid)
+    // storage = localStorage.getItem('hoge')
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>My Profile</title>
+</head>
+<body>
+    <h1>My Profile</h1>
+    <!-- <div>
+        <input type="image" name="image" placeholder="Image"/>
+    </div> -->
+    <div>
+        <span>User_Name:</span>
+        {{data.name}}
+        <span>Appeal:</span>
+        {{data.appeal}}
+        <span></span>
+    </div>
+    <form action="{% url 'profile_edit_view'%}"  method="get" id="Profile_Edit_View">{% csrf_token %}
+        <div>
+        <button type="submit" form="Profile_Edit_View">Edit</button><br>
+        </div>
+    </form>
+</body>
+</html>
