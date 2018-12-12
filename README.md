@@ -1,8 +1,7 @@
 # pyrebase and django"
+--anaconda--  
 activate ***  
 ## need install
-
----
 pip install pyrebase  
 pip install python-firebase  
 pip install django  
