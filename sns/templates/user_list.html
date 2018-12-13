@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 
-<title>e-cast</title>
+<title>User List</title>
 </head>
 
 <body>
-<h1>タイムライン</h1>
+<h1>User List</h1>
 <div id="app">
     
     <ul class="timeline-wrap">
@@ -42,7 +42,7 @@ delimiters: ['{', '}'],
             console.log(res.data)
             let result =''
             res.data.forEach(item => {
-                result += '<li>' + item.id + ',' + item.username + ',' + item.date + ',' + item.content + '</li>'
+                result += '<form action="{% url 'follow'%} method="post" id="Follow"">' + '<li>' + item.id + ',' + item.username + ',' + item.follow + ',' + item.follower + '<button type="submit"  form="Follow">Follow</button>' + '</li>' + '</form>'
             });
             document.querySelector('.timeline-wrap').innerHTML = result
         //   this.items = array;
