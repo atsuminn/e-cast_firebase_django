@@ -10,11 +10,7 @@ import json
 # Create your views here.
 
 config = {
-    "apiKey": "AIzaSyAKN-uHYzzp2Gdv7kNc3U8qXT-OB7GkVY0",
-    "authDomain": "e-east.firebaseapp.com",
-    "databaseURL": "https://e-east.firebaseio.com",
-    "projectId": "e-east",
-    "storageBucket": "e-east.appspot.com"
+    
     }
 
 firebase = pyrebase.initialize_app(config)
