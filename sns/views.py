@@ -10,11 +10,7 @@ import json
 # Create your views here.
 
 config = {
-    "apiKey": "AIzaSyAKN-uHYzzp2Gdv7kNc3U8qXT-OB7GkVY0",
-    "authDomain": "e-east.firebaseapp.com",
-    "databaseURL": "https://e-east.firebaseio.com",
-    "projectId": "e-east",
-    "storageBucket": "e-east.appspot.com"
+    
     }
 
 firebase = pyrebase.initialize_app(config)
@@ -198,4 +194,9 @@ def other_timeline_api(request):
 #     data = {yid:true}
 #     database.child('user').child(uid).child('details').child('follow').update(data)
 
+<<<<<<< HEAD
 #     return   
+=======
+    
+        
+>>>>>>> 618e4f61ac779e9d7da1145ecda4da229f9d9a15
