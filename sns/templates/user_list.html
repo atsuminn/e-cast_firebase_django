@@ -10,15 +10,16 @@
 <h1>User List</h1>
 <div id="app">
     
-    <ul class="timeline-wrap">
+    <ul class="userlist-wrap">{% csrf_token %}
+        
     </ul>
 
 </div>
-<form action="{% url 'timeline_post_view'%}"  method="get" id="Timeline_Post_View">{% csrf_token %}
+<!-- <form action="{% url 'user_list_view'%}"  method="get" id="User_List_View">{% csrf_token %}
         <div>
-        <button type="submit" form="Timeline_Post_View">Edit</button><br>
+        <button type="submit" form="User_List_View">Edit</button><br>
         </div>
-</form>
+</form> -->
 <div class="opp"></div>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -37,14 +38,14 @@ delimiters: ['{', '}'],
   methods: {
     request () {
       axios
-      .get('http://127.0.0.1:8000/timeline_api')
+      .get('http://127.0.0.1:8000/user_list_api')
         .then((res) => {
             console.log(res.data)
-            let result =''
+            let result = ''
             res.data.forEach(item => {
-                result += '<form action="{% url 'follow'%} method="post" id="Follow"">' + '<li>' + item.id + ',' + item.username + ',' + item.follow + ',' + item.follower + '<button type="submit"  form="Follow">Follow</button>' + '</li>' + '</form>'
+                result +=  '<li>' + item.details.id + ',' + item.details.name  + '<form action="{% url "other_profile"%}" method="post">{% csrf_token %}' + '<input type="hidden" name="data" value=' + item.details.id + '><button type="submit">詳細</button>' + '</form>'+ '</li></br>'
             });
-            document.querySelector('.timeline-wrap').innerHTML = result
+            document.querySelector('.userlist-wrap').innerHTML = result 
         //   this.items = array;
         })
         .catch((err) => {
@@ -57,3 +58,5 @@ delimiters: ['{', '}'],
 </body>
 
 </html> 
+
+<!-- '<form action="{% url "other_profile"%}" method="post" id="form">"{% csrf_token %}"' + '<input type="hidden" name="data" value=' + item.details.id + '><button type="submit" form="form">詳細</button>' + '</form>'  -->

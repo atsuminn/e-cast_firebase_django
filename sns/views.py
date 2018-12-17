@@ -58,15 +58,14 @@ def signup(request):
         username = request.POST.get('name')
         password = request.POST.get('password')
         email = request.POST.get('email')
-        id = request.POST.get('id')
         cnt = 0	
         # Create Account 
         user = authe.create_user_with_email_and_password(email, password)
         print (user)
         uid = user['localId']
-        data = {'name': username, 'index': cnt, 'id': id}
+        data = {'name': username, 'index': cnt, 'id': uid}
         # Set Name & count
-        database.child(uid).child("details").set(data)
+        database.child('user').child(uid).child('details').set(data)
         message = 'success'
         return render(request,'signin.html', {'message':message})
     else:
@@ -83,10 +82,18 @@ def timeline_api(request):
         items.append(data.val())
 
     return HttpResponse(json.dumps(items))
-    # return render(request,'timeline.html')
+
+def my_timeline_api(request):
+    items = []
+    uid = request.session['ses']
+    datas = database.child('user').child(uid).child('timeline').get()
+    for data in datas.each():
+        items.append(data.val())
+
+    return HttpResponse(json.dumps(items))
+
 def timeline(request):
     try:
-        # uid = request.session['ses']
         data = database.child('timeline').get().val()
         return render(request,'timeline.html', {'data':data})
 
@@ -99,22 +106,22 @@ def timeline_post(request):
     content = request.POST.get('content')
     uid = request.session['ses']
     cnt = int(database.child('index').get().val())
-    userCnt = int(database.child(uid).child('details').child('index').get().val())
+    userCnt = int(database.child('user').child(uid).child('details').child('index').get().val())
     # Get now time
     now = datetime.datetime.now()
     date = str(now.year)+'/'+str(now.month)+'/'+str(now.day)+' '+str(now.hour)+':'+str(now.minute)
     print(date)
     # Get username
-    username = database.child(uid).child('details').child('name').get().val()
+    username = database.child('user').child(uid).child('details').child('name').get().val()
     # Get id
-    id = database.child(uid).child('details').child('id').get().val()
+    id = database.child('user').child(uid).child('details').child('id').get().val()
     # firebase set datas
     datas = {'id': id, 'username': username,'date': date, 'content':content}
     database.child('timeline').child(cnt).set(datas)
-    database.child(uid).child('timeline').child(userCnt).set(datas)
+    database.child('user').child(uid).child('timeline').child(userCnt).set(datas)
     # Add +1 to userCnt 
     userCnt +=  1
-    database.child(uid).child('details').child('index').set(userCnt)
+    database.child('user').child(uid).child('details').child('index').set(userCnt)
     # Add +1 to cnt
     cnt += 1
     database.child('index').set(cnt)
@@ -126,7 +133,8 @@ def timeline_post_view(request):
 def profile(request):
     try:
         uid = request.session['ses']
-        data = database.child(uid).child('details').get().val()
+        data = database.child('user').child(uid).child('details').get().val()
+        print(data)
         return render(request,'profile.html', {'data':data})
 
     except :
@@ -140,17 +148,54 @@ def profile_edit(request):
     username = request.POST.get('name')
     appeal = request.POST.get('appeal')
     data = {'name': username, 'appeal' : appeal}
-    database.child(uid).child('details').update(data)
+    database.child('user').child(uid).child('details').update(data)
     return redirect('profile')
 
-def follow(request):
-    
+def user_list_api(request):
+    items = []
+    datas = database.child('user').get()
+    for data in datas.each():
+        items.append(data.val())
+
+    return HttpResponse(json.dumps(items))    
 
 def user_list(request):
-    uid = request.session['ses']
-    data = {}
-    database.child(uid).child('follow').set(data)
-    return redirect('profile')
+    try:
+        data = database.child('user').get().val()
+        return render(request,'user_list.html', {'data':data})
 
-    
-        
+    except :
+        # message = 'error'
+        # return render(request,'timeline.html', {'message':message})
+        return redirect('/')
+
+def user_list_view(request):
+    return render(request,'user_list.html')
+
+def other_profile(request,methods=['POST']):
+    global yid
+    yid = request.POST.get('data')
+    print(yid)
+    data = database.child('user').child(yid).child('details').get().val()
+    # timeline = database.child('user').child(yid).child('timeline').get().val() 
+    return render(request,'other_profile.html', {'data':data})
+
+def other_timeline_api(request):
+    items = []
+    datas = database.child('user').child(yid).child('timeline').get()
+    for data in datas.each():
+        items.append(data.val())
+
+    return HttpResponse(json.dumps(items))
+
+
+# def follow(request):
+#     # followボタンを押下した際下記を実行
+#     # 自分のuidを取得
+#     uid = request.session['ses']
+#     # その人のuidを取得する
+#     yid = request.POST.get('id')
+#     data = {yid:true}
+#     database.child('user').child(uid).child('details').child('follow').update(data)
+
+#     return   

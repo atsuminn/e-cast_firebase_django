@@ -1,44 +1,29 @@
-{% if data %}
-<script>
-    alert('{{ data }}');
-    // alert('{{ aiu }}');
-    // localStorage.setItem('hoge',uid)
-    // storage = localStorage.getItem('hoge')
-</script>
-{% endif %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>My Profile</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <form action="{% url 'profile_edit_view'%}"  method="get" id="Profile_Edit_View">{% csrf_token %}
-        <div>
-        <button type="submit" form="Profile_Edit_View">Edit</button><br>
-        </div>
-    </form>
-    <form action="{% url 'user_list_view'%}"  method="get" id="User_List_View">{% csrf_token %}
-        <div>
-        <button type="submit" form="User_List_View">User List</button><br>
-        </div>
-    </form>
-    <h1>My Profile</h1>
+    <h1>{{data.name}}Profile</h1>
     <section>
         <div>
             <span>User_ID:</span>
             {{data.id}}
-            <span>User_Name:</span>
-            {{data.name}}
             <span>Appeal:</span>
             {{data.appeal}}
             <span></span>
         </div>
     </section>
     <section>
+        
+    </section>
+    <section>
         <h2>My Timeline</h2>
         <div id="app">
-            <ul class="my-timeline-wrap"></ul>
+            <ul class="other-timeline-wrap"></ul>
         </div>
         <script src="https://unpkg.com/vue"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -57,14 +42,14 @@
         methods: {
             request () {
             axios
-            .get('http://127.0.0.1:8000/my_timeline_api')
+            .get('http://127.0.0.1:8000/other_timeline_api')
                 .then((res) => {
                     console.log(res.data)
                     let result =''
                     res.data.forEach(item => {
                         result += '<li>' + item.id + ',' + item.username + ',' + item.date + ',' + item.content + '</li>'
                     });
-                    document.querySelector('.my-timeline-wrap').innerHTML = result
+                    document.querySelector('.other-timeline-wrap').innerHTML = result
                 //   this.items = array;
                 })
                 .catch((err) => {
@@ -75,7 +60,5 @@
         }).$mount('#app');
         </script>
     </section>
-
-    
 </body>
 </html>
