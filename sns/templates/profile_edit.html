@@ -1,25 +1,39 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
+    <form action="{% url 'signout'%}"  method="post" id="SignOut">{% csrf_token %}
+        <div class="signout">
+        <button type="submit" form="SignOut">Logout</button><br>
+        </div>
+    </form>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile_edit.css' %}" />
     <title>Edit</title>
 </head>
 <body>
-    <h1>Edit</h1>
+    <h1>My Profile Edit</h1>
     <form action="{% url 'profile_edit'%}"  method="post" id="Profile">{% csrf_token %}
         <!-- <div>
             <input type="image" name="image" placeholder="Image"/>
         </div> -->
-        <div>
+        <div class="profile_edit">
             <span>User_Name:</span>
-            <input type="text" name="name" placeholder="atsumi" required="" />
-            <span>Appeal:</span>
-            <input type="text" name="appeal" placeholder="atsumi tensai"/>
-            <span></span>
+            <input type="text" name="name" placeholder="atsumi" required="" /><br>
+            <span>Appeal:</span><br>
+            <textarea name="appeal" rows="5" cols="50" placeholder="atumitensai"></textarea><br>
         </div>
-        <div>
-        <button type="submit" form="Profile">変更</button><br>
+        <br><br>
+        <div class="sousin">
+        <button type="submit" form="Profile">Change complete</button><br><br>
         </div>
     </form>
+    <form action="{% url 'profile'%}">
+            <div class="Back">
+                    <button onclick="location.href='./profile.html'">Back</button><br>
+
+                    <!-- <button onclick="history.back()">Back</button><br> -->
+            </div>
+        </form>
 </body>
 </html>

@@ -4,19 +4,25 @@
 </script>
 {% endif %}
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>e-cast</title>
+    <meta charset="utf-8">
+    <title>e-cast</title>    
+    <link rel=stylesheet href="{% static 'css/index.css' %}">
 </head>
 
 <body>
+<h1>e-cast</h1>
+<div>
 <form action="{% url 'signin'%}" >
-    <button type="submit">SignIn</button>
+    <input type="submit" value="SignIn" class="button">
 </form>
 <form action="{% url 'signup'%}">
-    <button type="submit">SignUp</button>
+    <input type="submit" value="SignUp" class="button">
 </form>
+</div>
 </body>
 
 </html>

@@ -1,0 +1,59 @@
+/*背景色の指定*/
+body {
+  /*  background-image: url("back2.jpg");*/
+      background-color:#FFC0CB
+    }
+    
+    /*e-castの文字を調整*/
+    h1{
+        text-align: center;
+        line-height: 150px;
+        font-size: 80px;
+        font-family: 'Gabriola';
+    }
+    
+    /*ボタンの装飾*/
+    .button {
+        display       : inline-block;
+        border-radius : 20%;          /* 角丸       */
+        font-size     : 16pt;        /* 文字サイズ */
+        text-align    : center;      /* 文字位置   */
+        cursor        : pointer;     /* カーソル   */
+        padding       : 3px 3px;   /* 余白       */
+        background    : #393E41;     /* 背景色     */
+        color         : #D3D0CB;     /* 文字色     */
+        line-height   : 1em;         /* 1行の高さ  */
+        transition    : .3s;         /* なめらか変化 */
+        border        : 2px solid #393E41;    /* 枠の指定 */
+        width         : 100px;       /* ボタン幅の統一 */
+        font-family: 'Gabriola';
+      }
+    
+    /*ボタンの背景と文字の色指定*/
+      .button:hover {
+        color         : #1a1aff;     /* 背景色     */
+        background    : #ffffff;     /* 文字色     */
+      }
+    
+    /*ボタンの中央配置*/
+    div {position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        /* -webkit- transform: translateY(-50%) translateX(-50%); */
+        }
+    
+    /*ボタンの間隔空け*/
+    div input {
+    margin: 20px 0px;
+    }
+  
+  
+  /*ボード*/
+      div{
+          padding: 4em 6em;
+          margin: 2em 0;
+          color:;
+          background: #FF7C85;
+          border-radius: 9px;
+      }

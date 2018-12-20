@@ -20,16 +20,11 @@
         // var snsRef = database.ref('e-east');
     </script>
     <script>
-        flag = '{{fstate}}';
-        if(flag){
-            console.log('true: ' + flag)
-        }else{
-            console.log('false' + flag)
-        }
+        flag = false;
         ucnt = parseInt('{{udata.follow.length}}',10);
         ycnt = parseInt('{{data.follower.length}}',10);
         function followToggle() {
-            if(flag) {
+            if('{{udata.follow.id}}'==!flag) {
                 //アンフォロー警告
                 var result = window.confirm("フォローを取り消しますか？");
                 if (result==true){
@@ -39,11 +34,11 @@
                     //自分のフォローの他ユーザを削除
                     ucnt -= 1;
                     console.log(ucnt);
-                    database.ref('user').child('{{udata.id}}').child('details').child('follow').set({'{{data.id}}': flag, 'length': ucnt});
+                    database.ref('user').child('{{udata.id}}').child('details').child('follow').set({'{{data.id}}': null, 'length': ucnt, 'status': null});
                     //他ユーザのフォロワーから自分を削除
                     ycnt -= 1;
                     console.log(ycnt);
-                    database.ref('user').child('{{data.id}}').child('details').child('follower').set({'{{udata.id}}': flag, 'length': ycnt});
+                    database.ref('user').child('{{data.id}}').child('details').child('follower').set({'{{udata.id}}': null, 'length': ycnt});
 
                     // 自分のフォローに他ユーザのフラグをfalse
                     // database.ref('user').child('{{uid}}').child('details').child('follow').set({'{{data.id}}' : flag});
@@ -59,7 +54,7 @@
                 //自分のフォローの他ユーザのフラグをtrue
                 ucnt += 1;
                 console.log(ucnt);
-                database.ref('user').child('{{udata.id}}').child('details').child('follow').set({'{{data.id}}':flag , 'length': ucnt});
+                database.ref('user').child('{{udata.id}}').child('details').child('follow').set({'{{data.id}}': {'flag':flag ,'status': "フォロー中"}, 'length': ucnt});
                 //他ユーザのフォロワーのフラグをtrue
                 ycnt += 1;
                 console.log(ycnt);
@@ -77,25 +72,17 @@
             {{data.id}}
             <span>Appeal:</span>
             {{data.appeal}}
-            <span><a href="{% url 'follow_list'%}">follow:</a>
-            {{data.follow.length}}
-            </span>
-            <span><a href="{% url 'follower_list'%}">follower:</a>
-            {{data.follower.length}}
-            </span>
-            {{fstate}}
-            {% if fstate %}
+            <span></span>
+            {% if data.follow.data.id.status == "フォロー中" %}
             <form name="button">
-                <INPUT type="button" value="フォロー中" name="followbutton" onclick="followToggle()">
+                <INPUT type="button" value="{{data.follow.status}}" name="followbutton" onclick="followToggle()">
             </form>
             {% else %}
             <form name="button">
                 <INPUT type="button" value="フォロー" name="followbutton" onclick="followToggle()">
             </form>
             {% endif %}
-
-            
-        </div> 
+        </div>
     </section>
     <section>
         

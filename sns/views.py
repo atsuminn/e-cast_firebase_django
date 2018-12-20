@@ -10,7 +10,11 @@ import json
 # Create your views here.
 
 config = {
-    
+    "apiKey": "AIzaSyAKN-uHYzzp2Gdv7kNc3U8qXT-OB7GkVY0",
+    "authDomain": "e-east.firebaseapp.com",
+    "databaseURL": "https://e-east.firebaseio.com",
+    "projectId": "e-east",
+    "storageBucket": "e-east.appspot.com"
     }
 
 firebase = pyrebase.initialize_app(config)
@@ -23,7 +27,6 @@ def index(request):
         uid = request.session['ses']
         if uid is not None:
             return render(request, 'home.html')
-
     except :
         return render(request,'index.html')
 
@@ -62,6 +65,8 @@ def signup(request):
         data = {'name': username, 'index': cnt, 'id': uid}
         # Set Name & count
         database.child('user').child(uid).child('details').set(data)
+        database.child('user').child(uid).child('details').child('follow').set({'length': 0})
+        database.child('user').child(uid).child('details').child('follower').set({'length': 0})
         message = 'success'
         return render(request,'signin.html', {'message':message})
     else:
@@ -99,29 +104,30 @@ def timeline(request):
         return redirect('/')
 
 def timeline_post(request):
-    content = request.POST.get('content')
-    uid = request.session['ses']
-    cnt = int(database.child('index').get().val())
-    userCnt = int(database.child('user').child(uid).child('details').child('index').get().val())
-    # Get now time
-    now = datetime.datetime.now()
-    date = str(now.year)+'/'+str(now.month)+'/'+str(now.day)+' '+str(now.hour)+':'+str(now.minute)
-    print(date)
-    # Get username
-    username = database.child('user').child(uid).child('details').child('name').get().val()
-    # Get id
-    id = database.child('user').child(uid).child('details').child('id').get().val()
-    # firebase set datas
-    datas = {'id': id, 'username': username,'date': date, 'content':content}
-    database.child('timeline').child(cnt).set(datas)
-    database.child('user').child(uid).child('timeline').child(userCnt).set(datas)
-    # Add +1 to userCnt 
-    userCnt +=  1
-    database.child('user').child(uid).child('details').child('index').set(userCnt)
-    # Add +1 to cnt
-    cnt += 1
-    database.child('index').set(cnt)
-    return redirect(timeline)
+   content = request.POST.get('content')
+   topic = getTopic(content)
+   uid = request.session['ses']
+   cnt = int(database.child('index').get().val())
+   userCnt = int(database.child('user').child(uid).child('details').child('index').get().val())
+   # Get now time
+   now = datetime.datetime.now()
+   date = str(now.year)+'/'+str(now.month)+'/'+str(now.day)+' '+str(now.hour)+':'+str(now.minute)
+   print(date)
+   # Get username
+   username = database.child('user').child(uid).child('details').child('name').get().val()
+   # Get id
+   id = database.child('user').child(uid).child('details').child('id').get().val()
+   # firebase set datas
+   datas = {'id': id, 'username': username,'date': date, 'content':content, 'topic':topic}
+   database.child('timeline').child(cnt).set(datas)
+   database.child('user').child(uid).child('timeline').child(userCnt).set(datas)
+   # Add +1 to userCnt
+   userCnt +=  1
+   database.child('user').child(uid).child('details').child('index').set(userCnt)
+   # Add +1 to cnt
+   cnt += 1
+   database.child('index').set(cnt)
+   return redirect(timeline)
 
 def timeline_post_view(request):
     return render(request,'timeline_post.html')
@@ -171,10 +177,17 @@ def user_list_view(request):
 def other_profile(request,methods=['POST']):
     global yid
     yid = request.POST.get('data')
-    print(yid)
+    uid = request.session['ses']
     data = database.child('user').child(yid).child('details').get().val()
-    # timeline = database.child('user').child(yid).child('timeline').get().val() 
-    return render(request,'other_profile.html', {'data':data})
+    udata = database.child('user').child(uid).child('details').get().val()
+    
+    followState = database.child('user').child(uid).child('details').child('follow').child(yid).get().val()
+    if followState == None:
+        database.child('user').child(uid).child('details').child('follow').child(yid).set('false')
+        followState = False
+
+    return render(request,'other_profile.html', {'data':data,'udata':udata, 'fstate':followState})
+    
 
 def other_timeline_api(request):
     items = []
@@ -184,19 +197,9 @@ def other_timeline_api(request):
 
     return HttpResponse(json.dumps(items))
 
-
-# def follow(request):
-#     # followボタンを押下した際下記を実行
-#     # 自分のuidを取得
-#     uid = request.session['ses']
-#     # その人のuidを取得する
-#     yid = request.POST.get('id')
-#     data = {yid:true}
-#     database.child('user').child(uid).child('details').child('follow').update(data)
-
-<<<<<<< HEAD
-#     return   
-=======
+def follow_list(request):
     
-        
->>>>>>> 618e4f61ac779e9d7da1145ecda4da229f9d9a15
+    return render(request,'follow_list.html')
+
+def follower_list(request):
+    return render(request,'follower_list.html')

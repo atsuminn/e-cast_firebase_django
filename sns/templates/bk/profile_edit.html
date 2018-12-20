@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Edit</title>
+</head>
+<body>
+    <h1>Edit</h1>
+    <form action="{% url 'profile_edit'%}"  method="post" id="Profile">{% csrf_token %}
+        <!-- <div>
+            <input type="image" name="image" placeholder="Image"/>
+        </div> -->
+        <div>
+            <span>User_Name:</span>
+            <input type="text" name="name" placeholder="atsumi" required="" />
+            <span>Appeal:</span>
+            <input type="text" name="appeal" placeholder="atsumi tensai"/>
+            <span></span>
+        </div>
+        <div>
+        <button type="submit" form="Profile">変更</button><br>
+        </div>
+    </form>
+</body>
+</html>

@@ -35,5 +35,7 @@ urlpatterns = [
     path('user_list_api', views.user_list_api, name='user_list_api'),
     path('other_timeline_api', views.other_timeline_api, name='other_timeline_api'),
     path('user_list', views.user_list, name='user_list'),
+    path('follow_list',views.follow_list, name='follow_list'),
+    path('follower_list',views.follower_list, name='follower_list'),
     # path('follow_api', views.follow_api, name='follow_api'),
 ]

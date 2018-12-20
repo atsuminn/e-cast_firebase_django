@@ -1,0 +1,196 @@
+/*背景色の指定*/
+body {
+  background-color:#FFC0CB
+}
+
+/*ビバ HOMEの文字を調整*/
+h1{
+    text-align: center;
+    line-height: 150px;
+    font-size: 50px;
+    /* color:; */
+    font-family: 'Gabriola';
+}
+
+/*ボタンの装飾*/
+button {
+      display       : inline-block;
+      border-radius : 20%;          /* 角丸       */
+      font-size     : 16pt;        /* 文字サイズ */
+      text-align    : center;      /* 文字位置   */
+      cursor        : pointer;     /* カーソル   */
+      padding       : 3px 3px;   /* 余白       */
+      background    : #393E41;     /* 背景色     */
+      color         : #D3D0CB;     /* 文字色     */
+      line-height   : 1em;         /* 1行の高さ  */
+      transition    : .3s;         /* なめらか変化 */
+      border        : 2px solid #1E2019;    /* 枠の指定 */
+      width         : 90px;       /* ボタン幅の統一 */
+      font-family: 'Gabriola';
+      margin: 10px 0px;
+    }
+
+/*ボタンの背景と文字の色指定*/
+  button:hover {
+    color         : #393E41;     /* 背景色     */
+    background    : #ffffff;     /* 文字色     */
+  }
+
+/*ボタンの中央配置*/
+.position {position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    /* -webkit- transform: translateY(-50%) translateX(-50%); */
+    }
+
+/*ボタンの中央配置*/
+.lposition {position: absolute;
+    top: 61%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    /* -webkit- transform: translateY(-50%) translateX(-50%); */
+    }
+
+/*ボタンの間隔空け*/
+div input {
+margin: 10px 0px;
+}
+
+
+
+
+
+
+/*ヘッダーまわりはサイトに合わせて調整してください*/
+header {
+padding:10px;
+/* background:; */
+}
+
+#nav-drawer {
+position: relative;
+}
+
+/*チェックボックス等は非表示に*/
+.nav-unshown {
+display:none;
+}
+
+/*アイコンのスペース*/
+#nav-open {
+display: inline-block;
+width: 30px;
+height: 22px;
+vertical-align: middle;
+}
+
+/*ハンバーガーアイコンをCSSだけで表現*/
+#nav-open span, #nav-open span:before, #nav-open span:after {
+position: absolute;
+height: 3px;/*線の太さ*/
+width: 25px;/*長さ*/
+border-radius: 3px;
+background: #555;
+display: block;
+content: '';
+cursor: pointer;
+}
+#nav-open span:before {
+bottom: -8px;
+}
+#nav-open span:after {
+bottom: -16px;
+}
+
+/*閉じる用の薄黒カバー*/
+#nav-close {
+display: none;/*はじめは隠しておく*/
+position: fixed;
+z-index: 99;
+top: 0;/*全体に広がるように*/
+left: 0;
+width: 100%;
+height: 100%;
+background: black;
+opacity: 0;
+transition: .3s ease-in-out;
+}
+
+/*中身*/
+#nav-content {
+overflow: auto;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 9999;/*最前面に*/
+width: 90%;/*右側に隙間を作る（閉じるカバーを表示）*/
+max-width: 330px;/*最大幅（調整してください）*/
+height: 100%;
+background: #FF9FE4;/*背景色*/
+transition: .3s ease-in-out;/*滑らかに表示*/
+-webkit-transform: translateX(-105%);
+transform: translateX(-105%);/*左に隠しておく*/
+}
+
+/*チェックが入ったらもろもろ表示*/
+#nav-input:checked ~ #nav-close {
+display: block;/*カバーを表示*/
+opacity: .5;
+}
+
+#nav-input:checked ~ #nav-content {
+-webkit-transform: translateX(0%);
+transform: translateX(0%);/*中身を表示（右へスライド）*/
+box-shadow: 6px 0 25px rgba(0,0,0,.15);
+}
+
+
+
+
+/*ハート*/
+.heart {
+position: absolute;
+width: 100px;
+height: 90px;
+left: 50%;
+top: 50%;
+
+}
+.heart:before,
+.heart:after {
+position: absolute;
+content: "";
+left: 50px;
+top: 0;
+width: 100px;
+height: 160px;
+background: #f88dc8;
+border-radius: 50px 50px 0 0;
+transform: rotate(-45deg);
+transform-origin: 0 100%;
+}
+.heart:after {
+left: -50;
+transform: rotate(45deg);
+transform-origin :100% 100%;
+}
+.heart{
+  
+ animation: pounding 0.9s linear infinite alternate;
+}
+
+@keyframes pounding {
+  0%{
+      transform: scale(1,1)translate(-50%, -30%);
+  }
+  70%{
+      transform: scale(1,1)translate(-50%, -30%);
+  }
+  80%{
+      transform: scale(1,1.06) translate(-50%, -30%);
+  }
+  100%{
+      transform: scale(1,1)translate(-50%, -30%);
+  }
+}

@@ -1,0 +1,46 @@
+/*背景色の指定*/
+body {
+    background-color:#FFC0CB
+    }
+
+/*Postの配置*/
+h1{
+    text-align: center;
+    font-size: 55px;
+    font-family: 'Gabriola';
+    color: #393E41;
+}
+
+    /*テキストの配置*/
+    .text {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        
+        transform: translateY(-50%) translateX(-50%);
+        text-align : center;
+    }
+
+    /*送信ボタンの配置*/
+    .post{position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+    }
+
+    /*ボタンの装飾*/
+    button {
+        display       : inline-block;
+        border-radius : 20%;          /* 角丸       */
+        font-size     : 16pt;        /* 文字サイズ */
+        text-align    : center;      /* 文字位置   */
+        cursor        : pointer;     /* カーソル   */
+        padding       : 3px 3px;   /* 余白       */
+        background    : #393E41;     /* 背景色     */
+        color         : #D3D0CB;     /* 文字色     */
+        line-height   : 1em;         /* 1行の高さ  */
+        transition    : .3s;         /* なめらか変化 */
+        border        : 2px solid #393E41;    /* 枠の指定 */
+        width         : 90px;       /* ボタン幅の統一 */
+        font-family: 'Gabriola';
+      }

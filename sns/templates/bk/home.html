@@ -1,0 +1,36 @@
+{% if message %}
+<script>
+    alert('{{ message }}');
+    alert('{{ aiu }}');
+    // localStorage.setItem('hoge',uid)
+    // storage = localStorage.getItem('hoge')
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>e-cast</title>
+</head>
+
+<body>
+<h1>ビバ　HOME!!!</h1>
+<form action="{% url 'signout'%}"  method="post" id="SignOut">{% csrf_token %}
+    <div>
+    <button type="submit" form="SignOut">Logout</button><br>
+    </div>
+</form>
+<form action="{% url 'timeline'%}"  method="post" id="TimeLine">{% csrf_token %}
+    <div>
+    <button type="submit" form="TimeLine">TimeLine</button><br>
+    </div>
+</form>
+<form action="{% url 'profile'%}"  method="post" id="Profile">{% csrf_token %}
+        <div>
+        <!-- <input type="hidden" name="storage" value="storage"> -->
+        <button type="submit" form="Profile">Profile</button><br>
+        </div>
+</form>
+</body>
+
+</html>
