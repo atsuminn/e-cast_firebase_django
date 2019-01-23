@@ -1,0 +1,147 @@
+body{
+    background-color: #ffc0cb;
+}
+
+h1 {
+    color: #393e31;
+    text-align: center;
+    font-size: 55px;
+    font-family: 'Gabriola';
+ }
+
+/*ボタンの装飾*/
+.Back button {
+  display       : inline-block;
+  border-radius : 20%;          /* 角丸       */
+  font-size     : 16pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 3px 3px;   /* 余白       */
+  background    : #393E41;     /* 背景色     */
+  color         : #D3D0CB;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  border        : 2px solid #1E2019;    /* 枠の指定 */
+  width         : 90px;       /* ボタン幅の統一 */
+  font-family: 'Gabriola';
+  margin: 10px 0px;
+}
+
+/*ボタンの背景と文字の色指定*/
+.Back button:hover {
+color         : #393E41;     /* 背景色     */
+background    : #ffffff;     /* 文字色     */
+}
+
+/*戻るボタンの配置*/
+.Back{position: absolute;
+  top: 5%;
+  left: 5%;
+  transform: translateY(-50%) translateX(-50%);
+}
+  
+  @charset "UTF-8";
+  .twitter__container {
+    padding: 0;
+    background: #ffffff;
+    overflow: hidden;
+    width: 90%;
+    margin: 20px auto;
+    font-size: 80%;
+    border: solid 1px #eeeeee;
+      
+    position: absolute;
+    top: 30%;
+    right: 5%;
+    left: 5%;
+  }
+  
+  .twitter__container a {
+    color: #ff7c85;;
+  }
+  
+  /* タイトル部分 */
+  .twitter__container .twitter__title {
+    background: #ff7c85;;
+    padding: 20px;
+    text-align: center;
+    font-size: 150%;
+    color: #ffffff;
+  }
+  
+  .twitter__container .twitter__title span {
+    font-size: 20px;
+  }
+  
+  /* タイムライン部分 */
+  .twitter__container .twitter__contents {
+    overflow: hidden;
+    position: relative;
+    line-height: 135%;
+  }
+  
+  .twitter__container .twitter__contents.scroll {
+  /*  height: 500px;*/
+    overflow-y: scroll;
+  }
+  
+  .twitter__container .twitter__block {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-bottom: solid 1px #eeeeee;
+    overflow: hidden;
+  }
+  
+  .twitter__container .twitter__block:last-child {
+    border-bottom: solid 0px;
+  }
+  /* アイコン画像 */
+  .twitter__container .twitter__block figure {
+    width: 50px;
+    padding: 0;
+    margin: 0;
+    float: left;
+    width: 50px;
+  }
+    /* 正方形を用意 */
+  .twitter__container .twitter__block figure img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  /* コメントエリア */
+  .twitter__container .twitter__block-text {
+    margin: 0;
+    position: relative;
+    margin-left: 60px;
+    padding-right: 10px;
+  }
+  
+  .twitter__container .twitter__block-text .userlist-wrap .name {
+    font-weight: bold;
+  }
+  
+  .twitter__container .twitter__block-text .userlist-wrap .name .name_reply {
+    color: #8a9aa4;
+    margin-left: 10px;
+  }
+  
+  /*
+   画像を貼る場合 
+  .twitter__container .twitter__block-text .text .in-pict img {
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    margin: 5px 0;
+    width: 95%;
+    height: 200px;
+    object-fit: cover;
+  }
+  */
+  
+  .twitter__container .twitter__icon br{
+    display: none;
+  }
+  

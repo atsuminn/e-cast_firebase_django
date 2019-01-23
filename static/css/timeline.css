@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*背景色の指定*/
 body {
   background-color:#FFC0CB
@@ -11,22 +12,49 @@ h1{
     color: #393E41;
 }
 
+ul{
+  list-style: none;
+}
 /*投稿ボタンの配置*/
 .post{position: absolute;
     top: 5%;
-    left: 90%;
+    left: 85%;
     transform: translateY(-50%) translateX(-50%);
 }
 
 /*戻るボタンの配置*/
 .back{position: absolute;
     top: 5%;
-    left: 96%;
+    left: 95%;
     transform: translateY(-50%) translateX(-50%);
 }
 
+/*ボタンの装飾*/
+button {
+  display       : inline-block;
+  border-radius : 20%;          /* 角丸       */
+  font-size     : 16pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 3px 3px;   /* 余白       */
+  background    : #393E41;     /* 背景色     */
+  color         : #D3D0CB;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  border        : 2px solid #1E2019;    /* 枠の指定 */
+  width         : 90px;       /* ボタン幅の統一 */
+  font-family: 'Gabriola';
+  margin: 10px 0px;
+}
 
-@charset "UTF-8";
+/*ボタンの背景と文字の色指定*/
+button:hover {
+color         : #393E41;     /* 背景色     */
+background    : #ffffff;     /* 文字色     */
+}
+
+
+
 .twitter__container {
   padding: 0;
   background: #ffffff;
@@ -35,8 +63,7 @@ h1{
   margin: 20px auto;
   font-size: 80%;
   border: solid 1px #eeeeee;
-    
-  position: absolute;
+  /* position: absolute; */
   top: 30%;
   right: 5%;
   left: 5%;
@@ -66,10 +93,10 @@ h1{
   line-height: 135%;
 }
 
-.twitter__container .twitter__contents.scroll {
+/* .twitter__container .twitter__contents.scroll {
 /*  height: 500px;*/
-  overflow-y: scroll;
-}
+  /* overflow-y: auto; */
+/* } */
 
 .twitter__container .twitter__block {
   width: 100%;
@@ -143,3 +170,9 @@ h1{
 .twitter__container .twitter__icon br{
   display: none;
 }
+
+.tab{overflow:hidden;}
+.tab li{background:#ccc; padding:5px 25px; float:left; margin-right:1px;}
+.tab li.select{background:#eee;}
+/* .content li{background:#eee; padding:20px;} */
+.hide {display:none;}

@@ -16,7 +16,7 @@ a = Analyzer(char_filters, t, token_filters)
 
 from gensim import corpora, models
 
-dictionary = corpora.Dictionary.load('sns/datasets/dictionary.dic')
+dictionary = corpora.Dictionary.load_from_text('sns/datasets/_wordids.txt.bz2')
 lda_model = models.LdaModel.load('sns/datasets/lda.model')
 
 def getTopic(message):

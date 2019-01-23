@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 {% load staticfiles %}
 <html>
 <head>
@@ -11,11 +11,19 @@
     <form action="{% url 'timeline_post'%}"  method="post" id="TimeLine">{% csrf_token %}
         <div class="text">
             <span>投稿内容</span><br><br>
-                               <input type="text" name="content" placeholder="おはようございます" required="" />
+                <input type="text" name="content" placeholder="おはようございます" required="" />
+            <p>タグ</p>
+                <input type="text" name="tag" placeholder="" />   
         </div>
         <div class="post">
         <button type="submit" form="TimeLine">send</button><br>
         </div>
+    </form>
+
+    <form action="{% url 'index'%}" method="get" id="home">{% csrf_token %}
+            <div class="back">
+                <button type="submit" form="home">home</button>
+            </div>
     </form>
 </body>
 </html>

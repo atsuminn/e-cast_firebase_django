@@ -1,6 +1,7 @@
 {% if data %}
+{% load staticfiles %}
 <script>
-    alert('{{ data }}');
+    //alert('{{ data }}');
     // alert('{{ aiu }}');
     // localStorage.setItem('hoge',uid)
     // storage = localStorage.getItem('hoge')
@@ -10,79 +11,110 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>My Profile</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Profile.css' %}" />
+    <!-- <link rel=stylesheet href="{% static 'css/other_profile.css' %}"> -->
+   
 </head>
 <body>
-    <form action="{% url 'profile_edit_view'%}"  method="get" id="Profile_Edit_View">{% csrf_token %}
-        <div>
-        <button type="submit" form="Profile_Edit_View">Edit</button><br>
-        </div>
+    <section>
+    <title>My Profile</title>
+    <form action="{% url 'signout'%}"  method="post" id="SignOut">{% csrf_token %}
+            <div class="signout">
+            <button type="submit" form="SignOut">Logout</button><br>
+            </div>
     </form>
     <form action="{% url 'user_list_view'%}"  method="get" id="User_List_View">{% csrf_token %}
-        <div>
+        <div class="userlist">
         <button type="submit" form="User_List_View">User List</button><br>
         </div>
     </form>
+    <form action="{% url 'profile_edit_view'%}"  method="get" id="Profile_Edit_View">{% csrf_token %}
+        <div class="sousin">
+        <button type="submit" form="Profile_Edit_View">Edit</button><br><br>
+        </div>
+    </form>
+    <!-- <form action="{% url 'index'%}" method="get">
+        <div class="Back">
+                <button onclick="location.href='./home.html'">Back</button><br>
+        </div>
+    </form> -->
     <h1>My Profile</h1>
-    <section>
-        <div>
-            <span>User_ID:</span>
-            {{data.id}}
-            <span>User_Name:</span>
-            {{data.name}}
-            <span>Appeal:</span>
-            {{data.appeal}}
-            <span><a href="{% url 'follow_list' %}">follow:</a>
+    <!-- <div>
+        <input type="image" name="image" placeholder="Image"/>
+    </div> -->
+    <div class="myprofile">
+        <span>User_ID:</span>
+        {{data.id}}
+        <span>User_Name:</span>
+        {{data.name}}
+        <span>Appeal:</span>
+        {{data.appeal}}
+        <span>選択中のタグ:</span>
+        {{tags.tag1}}
+        {{tags.tag2}}
+        {{tags.tag3}}
+        {{tags.tag4}}
+        {{tags.tag5}}
+        <br>
+        <span><a href="{% url 'follow_list' %}">follow:</a>
             {{data.follow.length}}
             </span>
             <span><a href="{% url 'follower_list' %}">follower:</a>
             {{data.follower.length}}
             </span>
-
-
+        
+    </div>
+</section>
+<section></section>
+<section>
+<h2>My Timeline</h2>
+<div id="app">
+    <div class="twitter__container">
+        <div class="twitter__title"></div>
+        <div class="twitter__contents scroll">
+            <div class="twitter__block">
+                <div class="twitter__block-text">
+                    <ul class="my-timeline-wrap"></ul>
+                </div>
+            </div>
         </div>
-    </section>
-    <section>
-        <h2>My Timeline</h2>
-        <div id="app">
-            <ul class="my-timeline-wrap"></ul>
-        </div>
-        <script src="https://unpkg.com/vue"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script>
-        const vm = new Vue({
-        delimiters: ['{', '}'],
-        data() {
-            return {
-                items: [],
-                test: null
-            }
-        },
-        mounted () {
-            this.request()
-        },
-        methods: {
-            request () {
-            axios
-            .get('http://127.0.0.1:8000/my_timeline_api')
-                .then((res) => {
-                    console.log(res.data)
-                    let result =''
-                    res.data.forEach(item => {
-                        result += '<li>' + item.id + ',' + item.username + ',' + item.date + ',' + item.content + '</li>'
-                    });
-                    document.querySelector('.my-timeline-wrap').innerHTML = result
-                //   this.items = array;
-                })
-                .catch((err) => {
-                console.log(err);
-                });
-            }
-        }
-        }).$mount('#app');
-        </script>
-    </section>
-
+    </div>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+const vm = new Vue({
+delimiters: ['{', '}'],
+data() {
+    return {
+        items: [],
+        test: null
+    }
+},
+mounted () {
+    this.request()
+},
+methods: {
+    request () {
+    axios
+    .get('http://127.0.0.1:8000/my_timeline_api')
+        .then((res) => {
+            console.log(res.data)
+            let result =''
+            res.data.forEach(item => {
+                result += '<li>' + item.id + ',' + item.username + ',' + item.date + ',' + item.content + '</li>'
+            });
+            document.querySelector('.my-timeline-wrap').innerHTML = result
+        //   this.items = array;
+        })
+        .catch((err) => {
+        console.log(err);
+        });
+    }
+}
+}).$mount('#app');
+</script>
+</section>
     
 </body>
 </html>

@@ -1,31 +1,100 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{{follow}}
 <html>
-
+<!-- {{tdata}} -->
 <head>
     <meta charset="utf-8">
-
     <title>e-cast</title>
     <link rel=stylesheet href="{% static 'css/timeline.css' %}">
 </head>
-
 <body>
-    <h1>TimeLine</h1>
-
-    <div id="app">
-        <div class="twitter__container">
-            <div class="twitter__title"></div>
-            <div class="twitter__contents scroll">
-
-                <div class="twitter__block">
-                    <div class="twitter__block-text">
-                        <p class="timeline-wrap"></p>
-                    </div>
+    <h1>Timeline</h1>
+    <ul class="tab">
+        <li class="select">すべてのタイムライン</li>
+        <li>{{tdata.tag1}}</li>
+        <li>{{tdata.tag2}}</li>
+        <li>{{tdata.tag3}}</li>
+        <li>{{tdata.tag4}}</li>
+        <li>{{tdata.tag5}}</li>
+    </ul>
+    <ul class="content" id="app">
+        <li >
+            <div class="twitter__container">
+                <div class="twitter__title">
                 </div>
+                <!-- <div class="twitter__contents scroll"> -->
+                    <div class="twitter__block">
+                        <div class="twitter__block-text">
+                            <p class="timeline-wrap"></p>
+                        </div>
+                    </div>
+                <!-- </div> -->
             </div>
-        </div>
-    </div>
-
+        </li>
+        <li class="hide">
+            <div class="twitter__container">
+                <div class="twitter__title">
+                </div>
+                <!-- <div class="twitter__contents scroll"> -->
+                    <div class="twitter__block">
+                        <div class="twitter__block-text">
+                            <p class="tagline1-wrap"></p>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </li>
+        <li class="hide"> <div class="twitter__container">
+                <div class="twitter__title">
+                </div>
+                <!-- <div class="twitter__contents scroll"> -->
+                    <div class="twitter__block">
+                        <div class="twitter__block-text">
+                            <p class="tagline2-wrap"></p>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </li>
+        <li class="hide"> <div class="twitter__container">
+                <div class="twitter__title">
+                </div>
+                <!-- <div class="twitter__contents scroll"> -->
+                    <div class="twitter__block">
+                        <div class="twitter__block-text">
+                            <p class="tagline3-wrap"></p>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </li>
+        <li class="hide"> <div class="twitter__container">
+                <div class="twitter__title">
+                </div>
+                <!-- <div class="twitter__contents scroll"> -->
+                    <div class="twitter__block">
+                        <div class="twitter__block-text">
+                            <p class="tagline4-wrap"></p>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </li>
+        <li class="hide"> <div class="twitter__container">
+                <div class="twitter__title">
+                </div>
+                <!-- <div class="twitter__contents scroll"> -->
+                    <div class="twitter__block">
+                        <div class="twitter__block-text">
+                            <p class="tagline5-wrap"></p>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </li>
+    </ul>
+    
 
     <form action="{% url 'timeline_post_view'%}" method="get" id="Timeline_Post_View">{% csrf_token %}
         <div class="post">
@@ -42,7 +111,31 @@
     <div class="opp"></div>
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+            $(function() {
+                //クリックしたときのファンクションをまとめて指定
+                $('.tab li').click(function() {
+            
+                    //.index()を使いクリックされたタブが何番目かを調べ、
+                    //indexという変数に代入します。
+                    var index = $('.tab li').index(this);
+            
+                    //コンテンツを一度すべて非表示にし、
+                    $('.content li').css('display','none');
+            
+                    //クリックされたタブと同じ順番のコンテンツを表示します。
+                    $('.content li').eq(index).css('display','block');
+            
+                    //一度タブについているクラスselectを消し、
+                    $('.tab li').removeClass('select');
+            
+                    //クリックされたタブのみにクラスselectをつけます。
+                    $(this).addClass('select')
+                    
+                });
+            });
+            </script>
     <script>
         const vm = new Vue({
             delimiters: ['{', '}'],
@@ -62,11 +155,67 @@
                         .then((res) => {
                             console.log(res.data)
                             let result = ''
+                            let result1 = ''
+                            let result2 = ''
+                            let result3 = ''
+                            let result4 = ''
+                            let result5 = ''
                             res.data.forEach(item => {
-                                result += '<div class="name">' + item.username + '<span class="name_reply">' + item.id + '</span></div><div class="date">'
-                                    + item.date + '</div>(topic' + item.topic + ')<div class="text">' + item.content + '</div><br>'
+                                if(item.tag != null){
+                                    tag1 = "{{tdata.tag1}}";
+                                    tag2 = "{{tdata.tag2}}";
+                                    tag3 = "{{tdata.tag3}}";
+                                    tag4 = "{{tdata.tag4}}";
+                                    tag5 = "{{tdata.tag5}}"; 
+                                    follow = "{{follow}}"    
+                                    console.log(follow)                                    
+                                    switch(item.tag){
+                                        case tag1 :
+                                            result1 += '<div class="name">' + '<a href="/other_profile?data=' + item.id + '">' + item.username + '</a>'
+                                            + '<span class="name_reply">' + item.id + '</span></div><div class="date">'
+                                            + item.date + '</div>(topic' + item.topic + ',' + item.tag + ')<div class="text">' + item.content + '</div><br>'
+                                            break;
+                                        case tag2 :
+                                            result2 += '<div class="name">' + '<a href="/other_profile?data=' + item.id + '">' + item.username + '</a>'
+                                            + '<span class="name_reply">' + item.id + '</span></div><div class="date">'
+                                            + item.date + '</div>(topic' + item.topic + ',' + item.tag + ')<div class="text">' + item.content + '</div><br>'
+                                            break;
+                                        case tag3 :
+                                            result3 += '<div class="name">' + '<a href="/other_profile?data=' + item.id + '">' + item.username + '</a>'
+                                            + '<span class="name_reply">' + item.id + '</span></div><div class="date">'
+                                            + item.date + '</div>(topic' + item.topic + ',' + item.tag + ')<div class="text">' + item.content + '</div><br>'
+                                            break;
+                                        case tag4 :
+                                            result4 += '<div class="name">' + '<a href="/other_profile?data=' + item.id + '">' + item.username + '</a>'
+                                            + '<span class="name_reply">' + item.id + '</span></div><div class="date">'
+                                            + item.date + '</div>(topic' + item.topic + ',' + item.tag + ')<div class="text">' + item.content + '</div><br>'
+                                            break;
+                                        case tag5 :
+                                            result5 += '<div class="name">' + '<a href="/other_profile?data=' + item.id + '">' + item.username + '</a>'
+                                            + '<span class="name_reply">' + item.id + '</span></div><div class="date">' 
+                                            + item.date + '</div>(topic' + item.topic + ',' + item.tag + ')<div class="text">' + item.content + '</div><br>'
+                                            break;
+                                        default :
+                                            if(item.id==follow){
+                                                result += '<div class="name">' + '<a href="/other_profile?data=' + item.id + '">' + item.username + '</a>'
+                                            + '<span class="name_reply">' + item.id + '</span></div><div class="date">'
+                                            + item.date + '</div>(topic' + item.topic + ',' + item.tag + ')<div class="text">' + item.content + '</div><br>';
+                                            break;
+                                            }
+                                            
+                                    }
+                                } else{
+                                    result += '<div class="name">' + '<a href="/other_profile?data=' + item.id + '">' + item.username + '</a>'
+                                           + '<span class="name_reply">' + item.id + '</span></div><div class="date">'
+                                           + item.date + '</div>(topic' + item.topic + ')<div class="text">' + item.content + '</div><br>'
+                                }
                             });
-                            document.querySelector('.timeline-wrap').innerHTML = result
+                            document.querySelector('.timeline-wrap').innerHTML = result 
+                            document.querySelector('.tagline1-wrap').innerHTML = result1
+                            document.querySelector('.tagline2-wrap').innerHTML = result2
+                            document.querySelector('.tagline3-wrap').innerHTML = result3
+                            document.querySelector('.tagline4-wrap').innerHTML = result4
+                            document.querySelector('.tagline5-wrap').innerHTML = result5
                             //   this.items = array;
                         })
                         .catch((err) => {

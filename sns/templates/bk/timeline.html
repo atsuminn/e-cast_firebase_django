@@ -1,59 +1,81 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
-<head>
-<meta charset="utf-8">
 
-<title>e-cast</title>
+<head>
+    <meta charset="utf-8">
+
+    <title>e-cast</title>
+    <link rel=stylesheet href="{% static 'css/timeline.css' %}">
 </head>
 
 <body>
-<h1>タイムライン</h1>
-<div id="app">
-    
-    <ul class="timeline-wrap">
-    </ul>
+    <h1>TimeLine</h1>
 
-</div>
-<form action="{% url 'timeline_post_view'%}"  method="get" id="Timeline_Post_View">{% csrf_token %}
-        <div>
-        <button type="submit" form="Timeline_Post_View">Edit</button><br>
+    <div id="app">
+        <div class="twitter__container">
+            <div class="twitter__title"></div>
+            <div class="twitter__contents scroll">
+
+                <div class="twitter__block">
+                    <div class="twitter__block-text">
+                        <p class="timeline-wrap"></p>
+                    </div>
+                </div>
+            </div>
         </div>
-</form>
-<div class="opp"></div>
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script>
-const vm = new Vue({
-delimiters: ['{', '}'],
-  data() {
-      return {
-        items: [],
-        test: null
-      }
-  },
-  mounted () {
-      this.request()
-  },
-  methods: {
-    request () {
-      axios
-      .get('http://127.0.0.1:8000/timeline_api')
-        .then((res) => {
-            console.log(res.data)
-            let result =''
-            res.data.forEach(item => {
-                result += '<li>' + item.id + ',' + item.username + ',' + item.date + ',' + item.content + '</li>'
-            });
-            document.querySelector('.timeline-wrap').innerHTML = result
-        //   this.items = array;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }
-}).$mount('#app');
-</script>
+    </div>
+
+
+    <form action="{% url 'timeline_post_view'%}" method="get" id="Timeline_Post_View">{% csrf_token %}
+        <div class="post">
+            <button type="submit" form="Timeline_Post_View">post</button><br>
+        </div>
+    </form>
+
+    <form action="{% url 'index'%}" method="get" id="home">{% csrf_token %}
+        <div class="back">
+            <button type="submit" form="home">home</button>
+        </div>
+    </form>
+
+    <div class="opp"></div>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const vm = new Vue({
+            delimiters: ['{', '}'],
+            data() {
+                return {
+                    items: [],
+                    test: null
+                }
+            },
+            mounted() {
+                this.request()
+            },
+            methods: {
+                request() {
+                    axios
+                        .get('http://127.0.0.1:8000/timeline_api')
+                        .then((res) => {
+                            console.log(res.data)
+                            let result = ''
+                            res.data.forEach(item => {
+                                result += '<div class="name">' + item.username + '<span class="name_reply">' + item.id + '</span></div><div class="date">'
+                                    + item.date + '</div>(topic' + item.topic + ')<div class="text">' + item.content + '</div><br>'
+                            });
+                            document.querySelector('.timeline-wrap').innerHTML = result
+                            //   this.items = array;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+            }
+        }).$mount('#app');
+    </script>
 </body>
 
-</html> 
+</html>

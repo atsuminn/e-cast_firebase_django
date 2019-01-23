@@ -1,7 +1,7 @@
 {% if message %}
 <script>
-    alert('{{ message }}');
-    alert('{{ aiu }}');
+    //alert('{{ message }}');
+    //alert('{{ aiu }}');
     // localStorage.setItem('hoge',uid)
     // storage = localStorage.getItem('hoge')
 </script>
@@ -24,14 +24,7 @@
             <label id="nav-open" for="nav-input"><span></span></label>
             <label class="nav-unshown" id="nav-close" for="nav-input"></label>
             <div id="nav-content">
-
-                <div class="lposition">
-                    <form action="{% url 'signout'%}" method="post" id="SignOut">{% csrf_token %}
-                        <div class="button">
-                            <button type="submit" form="SignOut">Logout</button><br>
-                        </div>
-                    </form>
-                </div>
+        
                 <div class="position">
                     <form action="{% url 'timeline'%}" method="post" id="TimeLine">{% csrf_token %}
                         <div class="button">
@@ -43,6 +36,11 @@
                             <!-- <input type="hidden" name="storage" value="storage"> -->
                             <button type="submit" form="Profile">Profile</button><br>
                         </div>
+                    </form>
+                    <form action="{% url 'signout'%}" method="post" id="SignOut">{% csrf_token %}
+                            <div class="button">
+                                <button type="submit" form="SignOut">Logout</button><br>
+                            </div>
                     </form>
                 </div>
 

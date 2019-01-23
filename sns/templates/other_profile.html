@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel=stylesheet href="{% static 'css/other_profile.css' %}">
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
     <script>
@@ -21,10 +23,12 @@
     </script>
     <script>
         flag = '{{fstate}}';
-        if(flag){
+        if(flag == 'True'){
             console.log('true: ' + flag)
+            flag = true
         }else{
-            console.log('false' + flag)
+            console.log('false: ' + flag)
+            flag = false
         }
         ucnt = parseInt('{{udata.follow.length}}',10);
         ycnt = parseInt('{{data.follower.length}}',10);
@@ -72,7 +76,7 @@
 <body>
     <h1>{{data.name}}Profile</h1>
     <section>
-        <div>
+        <div class="profile">
             <span>User_ID:</span>
             {{data.id}}
             <span>Appeal:</span>
@@ -83,7 +87,7 @@
             <span><a href="{% url 'follower_list'%}">follower:</a>
             {{data.follower.length}}
             </span>
-            {{fstate}}
+            <!-- {{fstate}} -->
             {% if fstate %}
             <form name="button">
                 <INPUT type="button" value="フォロー中" name="followbutton" onclick="followToggle()">
@@ -103,7 +107,16 @@
     <section>
         <h2>My Timeline</h2>
         <div id="app">
-            <ul class="other-timeline-wrap"></ul>
+            <div class="twitter__container">
+                <div class="twitter__title"></div>
+                <div class="twitter__contents scroll">
+                    <div class="twitter__block">
+                        <div class="twitter__block-text">
+                            <ul class="other-timeline-wrap"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="https://unpkg.com/vue"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -120,21 +133,22 @@
             this.request()
         },
         methods: {
-            request () {
-            axios
-            .get('http://127.0.0.1:8000/other_timeline_api')
-                .then((res) => {
-                    console.log(res.data)
-                    let result =''
-                    res.data.forEach(item => {
-                        result += '<li>' + item.id + ',' + item.username + ',' + item.date + ',' + item.content + '</li>'
+            request() {
+                axios
+                    .get('http://127.0.0.1:8000/other_timeline_api')
+                    .then((res) => {
+                        console.log(res.data)
+                        let result = ''
+                        res.data.forEach(item => {
+                            result += '<div class="name">' + item.username + '<span class="name_reply">' + item.id + '</span></div><div class="date">' +
+                                item.date + '</div>(topic' + item.topic + ')<div class="text">' + item.content + '</div><br>'
+                        });
+                        document.querySelector('.other-timeline-wrap').innerHTML = result
+                        //   this.items = array;
+                    })
+                    .catch((err) => {
+                        console.log(err);
                     });
-                    document.querySelector('.other-timeline-wrap').innerHTML = result
-                //   this.items = array;
-                })
-                .catch((err) => {
-                console.log(err);
-                });
             }
         }
         }).$mount('#app');

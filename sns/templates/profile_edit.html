@@ -22,10 +22,17 @@
             <input type="text" name="name" placeholder="atsumi" required="" /><br>
             <span>Appeal:</span><br>
             <textarea name="appeal" rows="5" cols="50" placeholder="atumitensai"></textarea><br>
+            <p>選択するタグ(※5つ):</p>
+            <input type="text" name="tag1" required="" /><br>
+            <input type="text" name="tag2" required="" /><br>
+            <input type="text" name="tag3" required="" /><br>
+            <input type="text" name="tag4" required="" /><br>
+            <input type="text" name="tag5" required="" /><br>
+
         </div>
         <br><br>
         <div class="sousin">
-        <button type="submit" form="Profile">Change complete</button><br><br>
+        <button type="submit" form="Profile">complete</button><br><br>
         </div>
     </form>
     <form action="{% url 'profile'%}">
@@ -34,6 +41,6 @@
 
                     <!-- <button onclick="history.back()">Back</button><br> -->
             </div>
-        </form>
+    </form>
 </body>
 </html>

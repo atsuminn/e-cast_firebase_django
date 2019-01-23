@@ -1,21 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+{% load staticfiles %}
 <html>
 <head>
     <meta charset="utf-8" />
     <title>Post</title>
+    <link rel=stylesheet href="{% static 'css/timeline_post.css' %}">
 </head>
 <body>
     <h1>Post</h1>
     <form action="{% url 'timeline_post'%}"  method="post" id="TimeLine">{% csrf_token %}
-        <!-- <div>
-            <input type="image" name="image" placeholder="Image"/>
-        </div> -->
-        <div>
-            <span>Content</span>
-            <input type="text" name="content" placeholder="oppai" required="" />
+        <div class="text">
+            <span>投稿内容</span><br><br>
+                               <input type="text" name="content" placeholder="おはようございます" required="" />
         </div>
-        <div>
-        <button type="submit" form="TimeLine">変更</button><br>
+        <div class="post">
+        <button type="submit" form="TimeLine">send</button><br>
         </div>
     </form>
 </body>

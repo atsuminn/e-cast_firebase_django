@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>User List</title>
+</head>
+
+<body>
+<h1>User List</h1>
+<div id="app">
+    
+    <ul class="userlist-wrap">{% csrf_token %}
+        
+    </ul>
+
+</div>
+<!-- <form action="{% url 'user_list_view'%}"  method="get" id="User_List_View">{% csrf_token %}
+        <div>
+        <button type="submit" form="User_List_View">Edit</button><br>
+        </div>
+</form> -->
+<div class="opp"></div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+const vm = new Vue({
+delimiters: ['{', '}'],
+  data() {
+      return {
+        items: [],
+        test: null
+      }
+  },
+  mounted () {
+      this.request()
+  },
+  methods: {
+    request () {
+      axios
+      .get('http://127.0.0.1:8000/follower_list_api')
+        .then((res) => {
+            console.log(res.data)
+            let result = ''
+            res.data.forEach(item => {
+                result +=  '<li>' + item.yid + ',' + item.details.name  + '<form action="{% url "other_profile"%}" method="post">{% csrf_token %}' + '<input type="hidden" name="data" value=' + item.details.id + '><button type="submit">詳細</button>' + '</form>'+ '</li></br>'
+            });
+            document.querySelector('.userlist-wrap').innerHTML = result 
+        //   this.items = array;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+}).$mount('#app');
+</script>
+</body>
+
+</html> 
+
+<!-- '<form action="{% url "other_profile"%}" method="post" id="form">"{% csrf_token %}"' + '<input type="hidden" name="data" value=' + item.details.id + '><button type="submit" form="form">詳細</button>' + '</form>'  -->

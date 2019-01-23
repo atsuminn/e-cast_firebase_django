@@ -1,0 +1,50 @@
+body{
+    background-color: #ffc0cb;
+}
+
+h1 {
+    color: #393e31;
+    text-align: center;
+    font-size: 55px;
+    font-family: 'Gabriola';
+ }
+
+ .profile_edit{
+     color: #393e31;
+     text-align: center;
+     font-size: 30px;
+ }
+
+ .signout{
+     text-align: right;
+    }
+
+.sousin{
+    text-align: center;
+}
+
+.Back{
+    text-align: center;
+}
+
+ button {
+    display       : inline-block;
+    border-radius : 20%;          /* 角丸       */
+    font-family   : 'Gabriola';  /* 字体       */
+    font-size     : 16pt;        /* 文字サイズ */
+    text-align    : center;      /* 文字位置   */
+    cursor        : pointer;     /* カーソル   */
+    padding       : 3px 3px;   /* 余白       */
+    background    : #393e41;     /* 背景色     */
+    color         : #d3d0cb;     /* 文字色     */
+    line-height   : 1.5em;         /* 1行の高さ  */
+    transition    : .3s;         /* なめらか変化 */
+    width         : 150px;
+     /* box-shadow    : 6px 6px 3px #666666; 影の設定 */
+    border        : 2px solid #393e41;    /* 枠の指定 */
+ }
+ .button:hover {
+    box-shadow    : none;        /* カーソル時の影消去 */
+    color         : #000066;     /* 背景色     */
+    background    : #ffffff;     /* 文字色     */
+ }

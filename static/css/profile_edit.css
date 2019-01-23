@@ -27,24 +27,26 @@ h1 {
     text-align: center;
 }
 
- button {
+/*ボタンの装飾*/
+button {
     display       : inline-block;
     border-radius : 20%;          /* 角丸       */
-    font-family   : 'Gabriola';  /* 字体       */
     font-size     : 16pt;        /* 文字サイズ */
     text-align    : center;      /* 文字位置   */
     cursor        : pointer;     /* カーソル   */
     padding       : 3px 3px;   /* 余白       */
-    background    : #393e41;     /* 背景色     */
-    color         : #d3d0cb;     /* 文字色     */
-    line-height   : 1.5em;         /* 1行の高さ  */
+    background    : #393E41;     /* 背景色     */
+    color         : #D3D0CB;     /* 文字色     */
+    line-height   : 1em;         /* 1行の高さ  */
     transition    : .3s;         /* なめらか変化 */
-    width         : 150px;
-     /* box-shadow    : 6px 6px 3px #666666; 影の設定 */
-    border        : 2px solid #393e41;    /* 枠の指定 */
- }
- .button:hover {
-    box-shadow    : none;        /* カーソル時の影消去 */
-    color         : #000066;     /* 背景色     */
-    background    : #ffffff;     /* 文字色     */
- }
+    border        : 2px solid #1E2019;    /* 枠の指定 */
+    width         : 90px;       /* ボタン幅の統一 */
+    font-family: 'Gabriola';
+    margin: 10px 0px;
+  }
+  
+  /*ボタンの背景と文字の色指定*/
+  button:hover {
+  color         : #393E41;     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+  }

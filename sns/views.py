@@ -7,6 +7,7 @@ import datetime
 from firebase import firebase
 from django.contrib import auth
 import json
+from .lda import *
 # Create your views here.
 
 config = {
@@ -20,6 +21,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 database = firebase.database()
+storage = firebase.storage()
 
 
 def index(request):
@@ -95,8 +97,13 @@ def my_timeline_api(request):
 
 def timeline(request):
     try:
+        uid = request.session['ses']
+        # all用
         data = database.child('timeline').get().val()
-        return render(request,'timeline.html', {'data':data})
+        follow = database.child('user').child(uid).child('details').child('follow').get().val()
+        # タグ用
+        tdata = database.child('user').child(uid).child('details').child('tags').get().val()
+        return render(request,'timeline.html', {'data':data,'tdata':tdata,'follow':follow})
 
     except :
         # message = 'error'
@@ -105,6 +112,7 @@ def timeline(request):
 
 def timeline_post(request):
    content = request.POST.get('content')
+   tag = request.POST.get('tag')
    topic = getTopic(content)
    uid = request.session['ses']
    cnt = int(database.child('index').get().val())
@@ -118,7 +126,7 @@ def timeline_post(request):
    # Get id
    id = database.child('user').child(uid).child('details').child('id').get().val()
    # firebase set datas
-   datas = {'id': id, 'username': username,'date': date, 'content':content, 'topic':topic}
+   datas = {'id': id, 'username': username,'date': date, 'content': content, 'topic': topic, 'tag': tag}
    database.child('timeline').child(cnt).set(datas)
    database.child('user').child(uid).child('timeline').child(userCnt).set(datas)
    # Add +1 to userCnt
@@ -136,8 +144,9 @@ def profile(request):
     try:
         uid = request.session['ses']
         data = database.child('user').child(uid).child('details').get().val()
+        tags = database.child('user').child(uid).child('details').child('tags').get().val()
         print(data)
-        return render(request,'profile.html', {'data':data})
+        return render(request,'profile.html', {'data':data,'tags':tags})
 
     except :
         return redirect('/')
@@ -146,11 +155,20 @@ def profile_edit_view(request):
     return render(request,'profile_edit.html')
 
 def profile_edit(request):
+    tag1 = request.POST.get('tag1')
+    tag2 = request.POST.get('tag2')
+    tag3 = request.POST.get('tag3')
+    tag4 = request.POST.get('tag4')
+    tag5 = request.POST.get('tag5')
     uid = request.session['ses']
     username = request.POST.get('name')
+    image = request.POST.get('image')
     appeal = request.POST.get('appeal')
-    data = {'name': username, 'appeal' : appeal}
+    data = {'name': username, 'appeal': appeal}
+    storage.child("image/profile").put(image,uid)
     database.child('user').child(uid).child('details').update(data)
+    tags = {'tag1':tag1,'tag2':tag2,'tag3':tag3,'tag4':tag4,'tag5':tag5}
+    database.child('user').child(uid).child('details').child('tags').update(tags)
     return redirect('profile')
 
 def user_list_api(request):
@@ -167,16 +185,14 @@ def user_list(request):
         return render(request,'user_list.html', {'data':data})
 
     except :
-        # message = 'error'
-        # return render(request,'timeline.html', {'message':message})
         return redirect('/')
 
 def user_list_view(request):
     return render(request,'user_list.html')
 
-def other_profile(request,methods=['POST']):
+def other_profile(request,methods=['GET']):
     global yid
-    yid = request.POST.get('data')
+    yid = request.GET.get('data')
     uid = request.session['ses']
     data = database.child('user').child(yid).child('details').get().val()
     udata = database.child('user').child(uid).child('details').get().val()
@@ -198,8 +214,38 @@ def other_timeline_api(request):
     return HttpResponse(json.dumps(items))
 
 def follow_list(request):
+    uid = request.session['ses']
+    try:
+        data = database.child('user').child(uid).child('details').child('follow').get().val()
+        return render(request,'follow_list.html', {'data':data})
+
+    except :
+        return redirect('/')
     
-    return render(request,'follow_list.html')
 
 def follower_list(request):
-    return render(request,'follower_list.html')
+    uid = request.session['ses']
+    try:
+        data = database.child('user').child(uid).child('details').child('follower').get().val()
+        return render(request,'follower_list.html', {'data':data})
+
+    except :
+        return redirect('/')
+    
+def follow_list_api(request):
+    uid = request.session['ses']
+    items = []
+    datas = database.child('user').child(uid).child('details').child('follow').get()
+    for data in datas.each():
+        items.append(data.val())
+
+    return HttpResponse(json.dumps(items))  
+
+def follower_list_api(request):
+    uid = request.session['ses']
+    items = []
+    datas = database.child('user').child(uid).child('details').child('follower').get()
+    for data in datas.each():
+        items.append(data.val())
+
+    return HttpResponse(json.dumps(items))  

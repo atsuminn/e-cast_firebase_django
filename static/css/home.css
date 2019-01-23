@@ -44,14 +44,6 @@ button {
     /* -webkit- transform: translateY(-50%) translateX(-50%); */
     }
 
-/*ボタンの中央配置*/
-.lposition {position: absolute;
-    top: 61%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
-    /* -webkit- transform: translateY(-50%) translateX(-50%); */
-    }
-
 /*ボタンの間隔空け*/
 div input {
 margin: 10px 0px;
@@ -127,7 +119,7 @@ z-index: 9999;/*最前面に*/
 width: 90%;/*右側に隙間を作る（閉じるカバーを表示）*/
 max-width: 330px;/*最大幅（調整してください）*/
 height: 100%;
-background: #FF9FE4;/*背景色*/
+background: #FF7C85;/*背景色*/
 transition: .3s ease-in-out;/*滑らかに表示*/
 -webkit-transform: translateX(-105%);
 transform: translateX(-105%);/*左に隠しておく*/
@@ -165,7 +157,7 @@ left: 50px;
 top: 0;
 width: 100px;
 height: 160px;
-background: #f88dc8;
+background: #FF7C85;
 border-radius: 50px 50px 0 0;
 transform: rotate(-45deg);
 transform-origin: 0 100%;
